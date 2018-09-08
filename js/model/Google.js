@@ -24,15 +24,16 @@ function initMap() {
     // status = "FAILLLL"
     if (status == google.maps.places.PlacesServiceStatus.OK) {
       for (var i = 0; i < results.length; i++) {
+        results[i].place_id = i;
         placeResults.push(results[i]);
       }
-      createMarkers(placeResults, function() {
-        afterMapInit();
+      afterMapInit(function() {
+        createMarkers(placeResults, function() {});
       });
     } else {
       error = "Failed to search nearby places. Try Refreshing the page."
       console.log(error);
-      afterMapInit();
+      afterMapInit(function() {});
     }
   });
 }
@@ -44,10 +45,15 @@ function createMarkers(arr, callback) {
       lng: arr[i].geometry.location.lng()
     }
     var marker = new google.maps.Marker({
+      id: arr[i].place_id,
       position: pos,
       map: map,
-      title: arr[i].name
+      title: arr[i].name,
+      animation: google.maps.Animation.DROP
     })
+    marker.addListener('click', function() {
+      vm.displayInfoWindow(this)
+    });
     markers.push(marker);
   }
   callback();
@@ -56,6 +62,8 @@ function createMarkers(arr, callback) {
 // TODO:
 //  List of locations into side nav -- DONE
 //  Each location needs to display information about itself.
+//  Filter Places with a text field
+//  Style Markers when clicked
 //  Display all location markers by default -- DONE
 //  Clicking on a marker displays more information about it.
 //  Use wikipedia API to find additional info about places. Display in DOM.
