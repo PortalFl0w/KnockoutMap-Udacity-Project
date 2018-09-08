@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Pick-a-Place</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Pacifico" rel="stylesheet">
+    <!-- SCRIPTS INCLUDE -->
+        <!-- LIBS AND APIS -->
+        <script src="./js/libs/knockout-3.4.2.js" type="text/javascript"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <!-- END LIBS AND APIS -->
+    <!-- END SCRIPTS -->
+
+  </head>
+  <body>
+    <div class="main">
+      <div class="current-place-info">
+        <h4>Currently Viewing:</h4>
+        <h5>Location1 Location1</h5>
+        <a href="#">Change</a>
+      </div>
+      <aside class="main-nav">
+        <h1 class="logo">Pick-a-Place</h1>
+        <span class="sub-logo">Most important places in your area!</span>
+        <input type="text" class="filter" name="filter" placeholder="Filter...">
+        <ul class="places" data-bind="foreach: places">
+          <!-- list of places -->
+          <li class="place" data-bind="click: $parent.displayInfo">
+            <img data-bind="attr: {src: icon, alt: name}">
+            <h4 data-bind="text: name"></h4>
+          </li>
+        </ul>
+      </aside>
+      <section id="map">
+
+      </section>
+      <div class="error-container" data-bind="if: error">
+        <div class="error-inner" data-bind="text: error"></div>
+      </div>
+    </div>
+
+
+    <!-- CONTENT SCRIPTS -->
+    <script src="./js/model/Place.js" type="text/javascript"></script>
+    <script src="./js/vm/ViewModel.js" type="text/javascript"></script>
+    <script src="./js/model/Google.js" type="text/javascript"></script>
+    <script src="./key.js" type="text/javascript"></script>
+    <!-- END CONTENT SCRIPTS -->
+  </body>
+</html>
