@@ -32,7 +32,7 @@ function nearby(pos) {
         placeResults.push(results[i]);
       }
       afterMapInit(function() {
-        createMarkers(placeResults, function() {});
+        createMarkers(vm.places(), function() {});
       });
     } else {
       error = "Failed to search nearby places. Try Refreshing the page."
@@ -45,11 +45,11 @@ function nearby(pos) {
 function createMarkers(arr, callback) {
   for (var i = 0; i < arr.length; i++) {
     let pos = {
-      lat: arr[i].geometry.location.lat(),
-      lng: arr[i].geometry.location.lng()
+      lat: arr[i].lat,
+      lng: arr[i].lng
     }
     var marker = new google.maps.Marker({
-      id: arr[i].place_id,
+      id: arr[i].id,
       position: pos,
       map: map,
       title: arr[i].name,
@@ -67,6 +67,17 @@ function createMarkers(arr, callback) {
     markers.push(marker);
   }
   callback();
+}
+
+function setMapOnAll(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+
+function deleteMarkers() {
+  setMapOnAll(null);
+  markers = [];
 }
 
 // TODO:

@@ -43,6 +43,7 @@ function ViewModel() {
   self.filterResults = function() {
     // Filter current list of locations
 
+    deleteMarkers(); // delete all markers from the map.
     restoreRemoved(); // restore any previously removed items
 
     if (self.filterInput().length == 0) {
@@ -55,6 +56,9 @@ function ViewModel() {
     removedLocations = self.places.remove(function (item) {
       return !item.name.toLowerCase().includes(self.filterInput().toLowerCase());
     });
+
+    // Create map markers based on the new filtered array
+    createMarkers(self.places(), function() {});
 
     function restoreRemoved() {
       // restore removed locations
