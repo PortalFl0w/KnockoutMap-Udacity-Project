@@ -3,7 +3,7 @@
 //  RENAME THIS FILE TO 'key.js'
 //
 
-const KEY = "YOUR_API_KEY"
+const KEY = "YOUR_API_KEY" // UPDATE THIS WITH YOUR API KEY.
 
 function createGoogleScript() {
   let script = document.createElement("script");
