@@ -3,7 +3,6 @@ var error = null;
 var placeResults = [];
 var markers = [];
 var startingPos = {lat: 51.501021, lng: -0.12252}
-// var startingPos = {lat: 51, lng: 0}
 
 function initMap() {
   // initialize the map
@@ -43,32 +42,6 @@ function nearby(pos) {
   });
 }
 
-// function filterPlaces(pos, filter) {
-//   placeResults = []; // Reset the results
-//   var search = {
-//     location: pos,
-//     radius: '500',
-//     query: filter
-//   }
-//   service = new google.maps.places.PlacesService(map);
-//   service.textSearch(search, function(results, status) {
-//     // status = "FAILLLL"
-//     if (status == google.maps.places.PlacesServiceStatus.OK) {
-//       for (var i = 0; i < results.length; i++) {
-//         results[i].place_id = i;
-//         placeResults.push(results[i]);
-//       }
-//       vm.filterResults(function() {
-//         createMarkers(placeResults, function() {});
-//       });
-//     } else {
-//       error = "Failed to search nearby places. Try Refreshing the page."
-//       console.log(error);
-//       vm.filterResults(function() {});
-//     }
-//   });
-// }
-
 function createMarkers(arr, callback) {
   for (var i = 0; i < arr.length; i++) {
     let pos = {
@@ -82,6 +55,12 @@ function createMarkers(arr, callback) {
       title: arr[i].name,
       animation: google.maps.Animation.DROP
     })
+    marker.addListener('mouseover', function() {
+      this.setAnimation(google.maps.Animation.BOUNCE);
+    })
+    marker.addListener('mouseout', function() {
+      this.setAnimation(null);
+    })
     marker.addListener('click', function() {
       vm.displayInfoWindow(this)
     });
@@ -93,7 +72,7 @@ function createMarkers(arr, callback) {
 // TODO:
 //  List of locations into side nav -- DONE
 //  Each location needs to display information about itself.
-//  Filter Places with a text field
+//  Filter Places with a text field -- DONE
 //  Style Markers when clicked
 //  Display all location markers by default -- DONE
 //  Clicking on a marker displays more information about it.
