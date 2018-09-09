@@ -115,6 +115,50 @@ a {
   z-index: 1;
 }
 
+#locationInfo {
+  position: absolute;
+  overflow-y: scroll;
+  background: rgba(15,15,15,0.5);
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  display: none;
+  text-align: center;
+}
+
+#locationInfo .location-info-inner {
+  position: relative;
+  margin: auto;
+  margin-top: 60px;
+  padding: 25px;
+  width: 100%;
+  max-width: 800px;
+  background: #eee;
+}
+
+#locationInfo .location-info-inner h2 {
+  border-bottom: 1px solid black;
+}
+
+#locationInfo .location-info-inner .btn-close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  line-height: 40px;
+  font-size: 30px;
+  width: 40px;
+  border-radius: 0;
+  cursor: pointer;
+  transition: .2s ease all;
+}
+
+#locationInfo .location-info-inner .btn-close:hover {
+  border-radius: 100%;
+  background: #ddd;
+  transform: rotate(90deg);
+  transition: .2s ease all;
+}
+
 .error-container {
   position: fixed;
   bottom: 0;

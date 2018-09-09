@@ -62,7 +62,7 @@ function createMarkers(arr, callback) {
       this.setAnimation(null);
     })
     marker.addListener('click', function() {
-      vm.displayInfoWindow(this)
+      vm.displayInfoWindow(this.id)
     });
     markers.push(marker);
   }
