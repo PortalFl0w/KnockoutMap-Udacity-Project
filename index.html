@@ -23,7 +23,7 @@
       <aside class="main-nav">
         <h1 class="logo">Pick-a-Place</h1>
         <span class="sub-logo">Most important places in your area!</span>
-        <input type="text" class="filter" name="filter" placeholder="Filter...">
+        <input type="text" data-bind="event: { change: filterResults }, value: filterInput, valueUpdate: 'afterkeydown'" id="filter" class="filter" name="filter" placeholder="Filter...">
         <ul class="places" data-bind="foreach: places">
           <!-- list of places -->
           <li class="place" data-bind="click: $parent.displayInfoWindow">

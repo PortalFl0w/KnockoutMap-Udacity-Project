@@ -15,8 +15,13 @@ function initMap() {
     zoom: 17
   });
 
+  nearby(startingPos);
+
+}
+
+function nearby(pos) {
   var search = {
-    location: startingPos,
+    location: pos,
     radius: '500'
   }
   service = new google.maps.places.PlacesService(map);
@@ -37,6 +42,32 @@ function initMap() {
     }
   });
 }
+
+// function filterPlaces(pos, filter) {
+//   placeResults = []; // Reset the results
+//   var search = {
+//     location: pos,
+//     radius: '500',
+//     query: filter
+//   }
+//   service = new google.maps.places.PlacesService(map);
+//   service.textSearch(search, function(results, status) {
+//     // status = "FAILLLL"
+//     if (status == google.maps.places.PlacesServiceStatus.OK) {
+//       for (var i = 0; i < results.length; i++) {
+//         results[i].place_id = i;
+//         placeResults.push(results[i]);
+//       }
+//       vm.filterResults(function() {
+//         createMarkers(placeResults, function() {});
+//       });
+//     } else {
+//       error = "Failed to search nearby places. Try Refreshing the page."
+//       console.log(error);
+//       vm.filterResults(function() {});
+//     }
+//   });
+// }
 
 function createMarkers(arr, callback) {
   for (var i = 0; i < arr.length; i++) {
