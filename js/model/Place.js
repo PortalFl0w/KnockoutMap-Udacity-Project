@@ -5,8 +5,5 @@ function Place(googlePlace) {
   this.types = googlePlace.types
   this.lat = googlePlace.geometry.location.lat()
   this.lng = googlePlace.geometry.location.lng()
-  this.info = {
-    description: null,
-    image: null
-  }
+  this.info = []
 }

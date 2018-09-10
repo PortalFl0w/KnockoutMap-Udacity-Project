@@ -159,6 +159,26 @@ a {
   transition: .2s ease all;
 }
 
+#locationInfo .location-info-inner h4 {
+  padding: 25px;
+}
+
+#locationInfo .location-info-inner ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+}
+
+#locationInfo .location-info-inner ul li {
+  padding: 20px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #aaa;
+}
+
+#locationInfo .location-info-inner h5 {
+  font-size: 25px;
+}
+
 .error-container {
   position: fixed;
   bottom: 0;

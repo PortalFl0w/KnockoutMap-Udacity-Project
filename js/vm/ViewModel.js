@@ -13,8 +13,7 @@ function ViewModel() {
 
   // Info window observables
   self.infoTitle = ko.observable('')
-  self.infoImg = ko.observable('')
-  self.infoDescription = ko.observable('')
+  self.info = ko.observableArray('')
 
   self.displayInfoWindow = function(item) {
     // Get information about clicked item from wikipedia api.
@@ -25,11 +24,27 @@ function ViewModel() {
 
     self.infoTitle(item.name)
 
-    if (!item.info.description && !item.info.image) {
+    if (item.info.length == 0) {
+      // If this is the first time running this query.
+      self.wikiSearch(item.name, function(err,r){
 
+        if (err) {
+          console.log(r);
+          throw err;
+          self.info([r])
+        }
+
+        let itemWithInfo = item;
+        itemWithInfo.info = r.query.search
+        self.places.replace(item, itemWithInfo);
+
+        console.log(itemWithInfo);
+
+        self.info(itemWithInfo.info)
+      })
     } else {
-      self.infoImg(item.info.image)
-      self.infoDescription(item.info.description)
+      console.log("Query Stored");
+      self.info(item.info)
     }
 
     $('#locationInfo').fadeIn('slow', function() {})
@@ -71,6 +86,39 @@ function ViewModel() {
 
     console.log("Filtered: " + self.filterInput());
     return null;
+  }
+
+  /*
+  * Search Wikipedia for a string.
+  * Returns values in callback.
+  *   callback(error[bool], result[obj/str])
+  *
+  */
+  self.wikiSearch = function(str, callback) {
+    console.log(str);
+    $.ajax({
+      url: 'http://en.wikipedia.org/w/api.php',
+      data: {
+        action: 'query',
+        list: 'search',
+        srsearch: str,
+        format: 'json',
+        formatversion: 2
+      },
+      dataType: 'jsonp',
+      success: function (x) {
+        console.log(x);
+        callback(false, x);
+      },
+      error: function(x) {
+        console.error(x);
+        callback(true, "Unable to retreive information about this location")
+      }
+    });
+  }
+
+  self.wikiArticleUrlWithTags = function(id, inner) {
+    return "<a href=\"https://en.wikipedia.org/?curid=" + id + "\" target=\"_blank\">" + inner + "</a>";
   }
 
 }

@@ -82,9 +82,9 @@ function deleteMarkers() {
 
 // TODO:
 //  List of locations into side nav -- DONE
-//  Each location needs to display information about itself.
 //  Filter Places with a text field -- DONE
-//  Style Markers when clicked
+//  Style Markers when clicked -- DONE
 //  Display all location markers by default -- DONE
-//  Clicking on a marker displays more information about it.
+//  Clicking on a marker displays more information about it. -- DONE
 //  Use wikipedia API to find additional info about places. Display in DOM.
+//  Mobile styling

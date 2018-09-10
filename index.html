@@ -35,9 +35,18 @@
       </aside>
       <section id="locationInfo">
         <div class="location-info-inner">
-          <img data-bind="attr: {src: infoImg, alt: infoTitle}">
           <h2 data-bind="text: infoTitle"></h2>
-          <p data-bind="text: infoDescription"></p>
+          <h4>Top Wikipedia Articles About This Place:</h4>
+          <!-- ko if: info().length == 0 -->
+            <p>No Results Found For This Location</p>
+          <!-- /ko -->
+          <ul data-bind="foreach: info">
+            <li>
+              <h5 data-bind="text: title"></h5>
+              <p data-bind="html: snippet"></p>
+              <span data-bind="html: $parent.wikiArticleUrlWithTags(pageid, 'More Information...')"></span>
+            </li>
+          </ul>
           <div class="btn-close" data-bind="click: hideInfoWindow">
             <i class="fas fa-times"></i>
           </div>
