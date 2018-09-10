@@ -1,15 +1,18 @@
 function ViewModel() {
+
   let self = this;
+
   let locations = [];
   let removedLocations = [];
 
   for (var i = 0; i < placeResults.length; i++) {
+    // Generate places using the standard model.
     locations.push(new Place(placeResults[i]));
   }
 
-  self.places = ko.observableArray(locations);
-  self.error = ko.observable(error);
-  self.filterInput = ko.observable('');
+  self.places = ko.observableArray(locations);  // Stores the current list of places
+  self.error = ko.observable(error);  // Stores error string
+  self.filterInput = ko.observable('');  // Follows the user input on the filter field.
 
   // Info window observables
   self.infoTitle = ko.observable('')
@@ -29,26 +32,23 @@ function ViewModel() {
       self.wikiSearch(item.name, function(err,r){
 
         if (err) {
-          console.log(r);
-          throw err;
-          self.info([r])
+          console.error(r);
+          self.info([r]);
+          self.error(r);
         }
 
         let itemWithInfo = item;
         itemWithInfo.info = r.query.search
         self.places.replace(item, itemWithInfo);
 
-        console.log(itemWithInfo);
-
         self.info(itemWithInfo.info)
       })
     } else {
-      console.log("Query Stored");
+      // If the query for this item was already run before, use the stored information instead of requesting the data again.
       self.info(item.info)
     }
 
     $('#locationInfo').fadeIn('slow', function() {})
-    console.log(item);
   }
 
   self.hideInfoWindow = function() {
@@ -88,13 +88,10 @@ function ViewModel() {
     return null;
   }
 
-  /*
-  * Search Wikipedia for a string.
-  * Returns values in callback.
-  *   callback(error[bool], result[obj/str])
-  *
-  */
   self.wikiSearch = function(str, callback) {
+    // Search Wikipedia for a string.
+    // Returns values in callback.
+    //   callback(error[bool], result[obj/str])
     console.log(str);
     $.ajax({
       url: 'http://en.wikipedia.org/w/api.php',
@@ -118,14 +115,16 @@ function ViewModel() {
   }
 
   self.wikiArticleUrlWithTags = function(id, inner) {
+    // Returns an 'a' tag with the URL of the wikipedia article.
     return "<a href=\"https://en.wikipedia.org/?curid=" + id + "\" target=\"_blank\">" + inner + "</a>";
   }
 
 }
 
-var vm; // store the viewmodel here for use with JS
+var vm; // store the viewmodel globally for use with JS
 
 function afterMapInit(callback) {
+  // Initialize Knockout
   vm = new ViewModel();
   ko.applyBindings(vm);
   callback();
