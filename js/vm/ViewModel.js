@@ -34,9 +34,7 @@ function ViewModel() {
       self.wikiSearch(item.name, function(err,r){
 
         if (err) {
-          console.error(r);
-          self.info([r]);
-          self.error(r);
+          return self.error(r);
         }
 
         let itemWithInfo = item;
@@ -109,11 +107,10 @@ function ViewModel() {
       success: function (x) {
         console.log(x);
         callback(false, x);
-      },
-      error: function(x) {
-        console.error(x);
-        callback(true, "Unable to retreive information about this location")
       }
+    }).fail(function(x) {
+      console.error(x);
+      callback(true, "Unable to retreive information about this location")
     });
   }
 

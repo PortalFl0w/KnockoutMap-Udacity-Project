@@ -186,10 +186,12 @@ a {
   width: 100%;
   height: auto;
   text-align: center;
+  z-index: 3;
 }
 
 .error-container .error-inner {
   background: #f98989;
+  padding: 25px;
 }
 
 @media only screen and (min-width: 769px) {
