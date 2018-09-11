@@ -55,14 +55,10 @@ function createMarkers(arr, callback) {
       title: arr[i].name,
       animation: google.maps.Animation.DROP
     })
-    marker.addListener('mouseover', function() {
-      this.setAnimation(google.maps.Animation.BOUNCE);
-    })
-    marker.addListener('mouseout', function() {
-      this.setAnimation(null);
-    })
     marker.addListener('click', function() {
+      deanimateMarkers();
       vm.displayInfoWindow(this.id)
+      this.setAnimation(google.maps.Animation.BOUNCE);
     });
     markers.push(marker);
   }
@@ -75,7 +71,25 @@ function setMapOnAll(map) {
   }
 }
 
+function deanimateMarkers() {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setAnimation(null);
+  }
+}
+
+function animateMarker(id) {
+  for (var i = 0; i < markers.length; i++) {
+    if (markers[i].id == id) {
+      markers[i].setAnimation(google.maps.Animation.BOUNCE);
+    }
+  }
+}
+
 function deleteMarkers() {
   setMapOnAll(null);
   markers = [];
+}
+
+function googleError() {
+  $("#map").text("Unable to reach Google Maps")
 }

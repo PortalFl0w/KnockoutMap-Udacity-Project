@@ -14,6 +14,7 @@ function createGoogleScript() {
   script.setAttribute('src', base + key + callback + libs);
   script.setAttribute('async', '');
   script.setAttribute('defer', '');
+  script.setAttribute('onerror', 'googleError()');
   document.body.appendChild(script);
 }
 createGoogleScript();

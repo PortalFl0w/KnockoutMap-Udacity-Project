@@ -15,8 +15,8 @@ function ViewModel() {
   self.filterInput = ko.observable('');  // Follows the user input on the filter field.
 
   // Info window observables
-  self.infoTitle = ko.observable('')
-  self.info = ko.observableArray('')
+  self.infoTitle = ko.observable('');
+  self.info = ko.observableArray('');
 
   self.displayInfoWindow = function(item) {
     // Get information about clicked item from wikipedia api.
@@ -25,7 +25,9 @@ function ViewModel() {
       item = self.places().find(o => o.id == item);
     }
 
-    self.infoTitle(item.name)
+    animateMarker(item.id); // animate the corresponding marker.
+
+    self.infoTitle(item.name);
 
     if (item.info.length == 0) {
       // If this is the first time running this query.
@@ -38,20 +40,21 @@ function ViewModel() {
         }
 
         let itemWithInfo = item;
-        itemWithInfo.info = r.query.search
+        itemWithInfo.info = r.query.search;
         self.places.replace(item, itemWithInfo);
 
-        self.info(itemWithInfo.info)
+        self.info(itemWithInfo.info);
       })
     } else {
       // If the query for this item was already run before, use the stored information instead of requesting the data again.
-      self.info(item.info)
+      self.info(item.info);
     }
 
     $('#locationInfo').fadeIn('slow', function() {})
   }
 
   self.hideInfoWindow = function() {
+    deanimateMarkers();
     $('#locationInfo').fadeOut('slow', function() {})
   }
 
