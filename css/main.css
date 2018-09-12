@@ -1,5 +1,11 @@
 
-body, h1, h2, h3, h4, h5, a {
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+a {
   font-family: "Montserrat", sans-serif;
   margin: 0;
   padding: 0;
@@ -106,9 +112,7 @@ a {
   vertical-align: middle;
 }
 
-#map {
-  /* width: 80%;
-  height: 100vh; */
+.google-map {
   background: #eee;
   right: 0;
   position: absolute;
@@ -195,7 +199,7 @@ a {
 }
 
 @media only screen and (min-width: 769px) {
-    #map {
+    .google-map {
       width: 80%;
       height: 100vh;
     }
@@ -207,7 +211,7 @@ a {
 }
 
 @media only screen and (max-width: 768px) {
-    #map {
+    .google-map {
       width: 70%;
       height: 100vh;
     }
@@ -219,7 +223,7 @@ a {
 }
 
 @media only screen and (max-width: 500px) {
-    #map {
+    .google-map {
       width: 100%;
       top: 0;
       height: 55vh;

@@ -1,3 +1,5 @@
+"use strict";
+
 function ViewModel() {
 
   let self = this;
