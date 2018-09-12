@@ -61,9 +61,11 @@ function ViewModel() {
 
     deleteMarkers(); // delete all markers from the map.
     restoreRemoved(); // restore any previously removed items
+    removedLocations = []; // refresh the removed locations array.
 
     if (self.filterInput().length == 0) {
       // if input is empty, do nothing
+      createMarkers(self.places(), function() {});
       return null;
     }
 
